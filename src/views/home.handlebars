@@ -1,0 +1,20 @@
+<div class="products" id="home">
+  <h3>Hola {{this.first_name}}, Bienvenido</h3>
+  <a href="/api/sessions/logout">Logout</a>
+  <a href="/views/profile">Profile</a>
+  <a href="/views/cart/{{cart_id}}">Carrito</a>
+  <h1>GM motos - PRODUCTOS</h1>
+  <nav class="products__container">
+    {{#each products}}
+      <div class="product__card">
+        <img src="/assets/{{this.thumbnail}}" alt="{{this.title}}" />
+        <h2>{{this.title}}</h2>
+        <h4>Categoria: {{this.category}}</h4>
+        <p>U$S{{this.price}}</p>
+        <button class="addCart" onclick="addToCart('{{this._id}}', '{{../cart_id}}')">Agregar al
+          Carrito</button>
+      </div>
+    {{/each}}
+  </nav>
+</div>
+<script src="/product.js"></script>

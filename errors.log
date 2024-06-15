@@ -1,0 +1,13 @@
+{"level":"http","message":"POST en /api/sessions/login - at 11/6/2024 20:41:56"}
+{"level":"warn","message":""}
+{"level":"http","message":"GET en /views/profile - at 11/6/2024 20:41:56"}
+{"level":"warn","message":""}
+{"level":"http","message":"GET en /views/products - at 11/6/2024 20:43:04"}
+{"level":"warn","message":"GET en /views/products - at 11/6/2024 20:43:04"}
+{"level":"http","message":"GET en /views/login - at 11/6/2024 20:43:04"}
+{"level":"warn","message":"GET en /views/login - at 11/6/2024 20:43:04"}
+{"level":"http","message":"GET en /logger - at 12/6/2024 10:46:02"}
+{"level":"warn","message":"GET en /logger - at 12/6/2024 10:46:03"}
+{"level":"warn","message":"Prueba de log level warn --> en Endpoint"}
+{"level":"http","message":"GET en /favicon.ico - at 12/6/2024 10:46:03"}
+{"level":"warn","message":"GET en /favicon.ico - at 12/6/2024 10:46:03"}
