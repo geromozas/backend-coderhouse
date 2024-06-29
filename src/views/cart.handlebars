@@ -1,5 +1,6 @@
 <div class="products" id="home">
   <h1>GM motos - CARRITO</h1>
+    <a href="/views/products">Productos</a>
   <nav class="products__container">
     {{#each products}}
       <div class="product__card">
@@ -7,7 +8,7 @@
         <h2>{{this.product_id.title}}</h2>
         <h3>{{this.product_id.category}}</h3>
         <p>U$S{{this.product_id.price}}</p>
-        <p>{{this.quantity}}</p> <button class="deleteProd" onclick="deleteToCart('{{this._id}}', '{{../cart_id}}')">-</button>
+        <p>{{this.quantity}}</p> <button class="deleteProd" onclick="deleteToCart('{{this.product_id._id}}', '{{../cart_id}}')">-</button>
       </div>
     {{/each}}
   </nav>

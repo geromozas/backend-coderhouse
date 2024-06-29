@@ -2,6 +2,8 @@ import { MongoMessageManager } from "../dao/mongoManagers/mongoMessageManager.js
 import { Products } from "../dao/factory.js";
 import { cartDao } from "../controllers/cart.controller.js";
 import { io } from "../index.js";
+import { tr } from "@faker-js/faker";
+import jwt from "jsonwebtoken";
 
 const mongoMessageManager = new MongoMessageManager();
 const productDao = new Products();
@@ -91,5 +93,26 @@ export const profile = async (req, res) => {
   } catch (error) {
     req.logger.error(`${error} - ${new Date().toLocaleString()}`);
     return res.status(500).json({ message: error.message });
+  }
+};
+
+export const recoverPassword = async (req, res) => {
+  try {
+    res.render("requestRecoverPassword");
+  } catch (error) {
+    req.logger.error(`${error} - ${new Date().toLocaleString()}`);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  const { token } = req.query;
+
+  try {
+    jwt.verify(token, "secretKey");
+    console.log("Token recibido en la ruta /resetPassword:", token);
+    res.render("recoverPassword", { token });
+  } catch (error) {
+    res.redirect("/views/recoverPassword");
   }
 };

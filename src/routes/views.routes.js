@@ -8,7 +8,9 @@ import {
   createMessage,
   login,
   profile,
+  recoverPassword,
   register,
+  resetPassword,
   viewAllProducts,
   viewChat,
   viewProductsOfCart,
@@ -33,8 +35,12 @@ viewsRouter.get("/chat", viewChat);
 viewsRouter.post("/chat", createMessage);
 
 //sessions
-viewsRouter.get("/register", userLogged, register);
+viewsRouter.get("/register", register);
 
 viewsRouter.get("/login", login);
 
 viewsRouter.get("/profile", profile);
+
+viewsRouter.get("/recoverPassword", recoverPassword);
+
+viewsRouter.get("/resetPassword", resetPassword);

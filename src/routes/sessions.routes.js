@@ -5,7 +5,9 @@ import {
   getCurrentUser,
   login,
   logout,
+  recoverPassword,
   register,
+  resetPassword,
 } from "../controllers/session.controller.js";
 import { UserDTO } from "../dao/dto/user.dto.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
@@ -18,6 +20,10 @@ sessionRouter.post("/register", register);
 sessionRouter.post("/login", login);
 
 sessionRouter.get("/logout", logout);
+
+sessionRouter.post("/recoverPassword", recoverPassword);
+
+sessionRouter.post("/resetPassword", resetPassword);
 
 sessionRouter.get("/user/current", authMiddleware, getCurrentUser);
 

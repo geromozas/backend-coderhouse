@@ -25,7 +25,13 @@ export class MongoProductManager {
         !category
       )
         throw new Error("Completa todos los campos requeridos");
-      const newProduct = await ProductModel.create(product);
+
+      const owner =
+        user.role === "premium"
+          ? user._id
+          : await UserModel.findOne({ role: "admin" })._id;
+
+      const newProduct = await ProductModel.create({ ...product, owner });
       return newProduct;
     } catch (error) {
       throw new Error(error.message);
@@ -110,6 +116,11 @@ export class MongoProductManager {
     try {
       const product = await ProductModel.findByIdAndDelete(id);
       if (!product) throw new Error("Producto no encontrado");
+
+      if (user.role !== "admin" && !product.owner.equals(user._id)) {
+        throw new Error("No tienes permisos para eliminar este producto");
+      }
+
       return "Producto eliminado con exito";
     } catch (error) {
       throw new Error(error.message);

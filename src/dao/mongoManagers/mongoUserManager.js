@@ -88,12 +88,6 @@ export class MongoUserManager {
         });
       }
 
-      // const userData = {
-      //   first_name: existingUser.first_name,
-      //   last_name: existingUser.last_name,
-      //   email: existingUser.email,
-      //   role: existingUser.role,
-      // };
       return existingUser;
     } catch (error) {
       throw error;
@@ -104,6 +98,23 @@ export class MongoUserManager {
     try {
       const user = await UserModel.findById(userId);
       return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  findOne = async (query) => {
+    try {
+      const user = await UserModel.findOne(query);
+      return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
+  comparePassword = async (user, password) => {
+    try {
+      return isValidatePassword(user, password);
     } catch (error) {
       throw new Error(error.message);
     }

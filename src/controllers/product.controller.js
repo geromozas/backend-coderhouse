@@ -2,6 +2,7 @@ import { Products } from "../dao/factory.js";
 import { io } from "../index.js";
 import { generateProduct } from "../mocks/product.mocks.js";
 
+// export const productFactory = new Products();
 export const productFactory = new Products();
 
 export const getProducts = async (req, res) => {
@@ -32,6 +33,18 @@ export const getProductsById = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   try {
+    if (
+      req.session.user.role !== "premium" &&
+      req.session.user.role !== "admin"
+    ) {
+      return res.status(403).send("Acceso denegado");
+    }
+
+    const productData = {
+      ...req.body,
+      owner:
+        req.session.user.role === "premium" ? req.session.user.email : "admin",
+    };
     const productAdded = await productFactory.addProduct(req.body);
     io.emit("productAdded", productAdded);
     res.json(productAdded);
@@ -57,6 +70,16 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const id = req.params.pid;
+
+    const product = await productFactory.getProductsById(id);
+
+    if (!product) {
+      return res.status(404).send("Producto no encontrado");
+    }
+
+    if (req.user.role !== "admin" && product.owner !== req.user.email) {
+      return res.status(403).send("Acceso denegado");
+    }
     const response = await productFactory.deleteProduct(id);
     res.send("Producto eliminado exitosamente");
   } catch (error) {

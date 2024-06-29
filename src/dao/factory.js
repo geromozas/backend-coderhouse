@@ -13,6 +13,8 @@ export let Products;
 export let User;
 export let Message;
 export let Carts;
+// console.log("Config persistence:", config.persistence);
+// console.log("Products before assignment:", Products);
 
 switch (config.persistence) {
   case "MONGO":

@@ -14,9 +14,7 @@ import MongoStore from "connect-mongo";
 import session from "express-session";
 import { initPassport } from "./config/passport.config.js";
 import passport from "passport";
-import { config } from "./config/config.js";
 import { mockRouter } from "./routes/mock.routes.js";
-
 import { addLogger } from "./middleware/logger.middleware.js";
 import { program } from "./config/commander.config.js";
 
@@ -27,7 +25,7 @@ import { program } from "./config/commander.config.js";
 // export const cartManager = new CartManager();
 
 const app = express();
-const PORT = config.dbPort;
+// const PORT = config.dbPort;
 const server = createServer(app);
 
 export const mongoProductManager = new MongoProductManager();
@@ -92,7 +90,6 @@ app.get("/loggerTest", (req, res) => {
   req.logger.fatal(
     `Method:${req.method} - URL:${req.url} - ${new Date().toLocaleString()}`
   );
-
   res.send("Loggers created successfully");
 });
 

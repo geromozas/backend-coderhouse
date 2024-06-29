@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { mongoProductManager } from "../index.js";
 import { io } from "../index.js";
-import { adminMiddleware } from "../middleware/auth.middleware.js";
+import {
+  adminMiddleware,
+  authMiddleware,
+} from "../middleware/auth.middleware.js";
 import {
   addProduct,
   deleteProduct,
@@ -19,12 +22,12 @@ productsRouter.get("/", getProducts);
 productsRouter.get("/:pid", getProductsById);
 
 //agregar producto
-productsRouter.post("/", addProduct);
+productsRouter.post("/", authMiddleware, addProduct);
 
 //actualizar producto
 productsRouter.put("/:pid", adminMiddleware, updateProduct);
 
 //eliminar producto
-productsRouter.delete("/:pid", adminMiddleware, deleteProduct);
+productsRouter.delete("/:pid", authMiddleware, deleteProduct);
 
 export { productsRouter };
