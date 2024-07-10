@@ -49,15 +49,15 @@ El proyecto tiene como objetivo crear una plataforma de comercio electrónico pa
 
 Para iniciar el servidor en modo desarrollo, ejecuta:
 
-````
-    npm start
-    ```
+```bash
+npm start
+```
 
 Para ejecutar las pruebas, ejecuta:
-````
 
-    npm test
-    ```
+```bash
+npm test
+```
 
 ## Estructura del Proyecto
 
@@ -112,3 +112,7 @@ La documentación de la API se genera automáticamente con Swagger. Una vez que 
 ## Contacto
 
 Si tienes alguna pregunta o sugerencia, por favor contacta a [mozasgeronimo@gmail.com](mailto:mozasgeronimo@gmail.com).
+
+```
+
+```
