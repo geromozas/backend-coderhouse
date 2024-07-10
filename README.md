@@ -48,14 +48,16 @@ El proyecto tiene como objetivo crear una plataforma de comercio electrónico pa
 ## Ejecución
 
 Para iniciar el servidor en modo desarrollo, ejecuta:
-`bash
+
+````
     npm start
-    `
+    ```
 
 Para ejecutar las pruebas, ejecuta:
-`bash
+````
+
     npm test
-    `
+    ```
 
 ## Estructura del Proyecto
 
