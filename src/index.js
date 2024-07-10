@@ -17,6 +17,8 @@ import passport from "passport";
 import { mockRouter } from "./routes/mock.routes.js";
 import { addLogger } from "./middleware/logger.middleware.js";
 import { program } from "./config/commander.config.js";
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
 //FileSystem
 // import { ProductManager } from "./productManager.js";
@@ -32,6 +34,21 @@ export const mongoProductManager = new MongoProductManager();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Swagger setup
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: "3.0.1",
+    info: {
+      title: "E-commerce API",
+      description: "API documentation for E-commerce project",
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use("/apidocs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 //HANDLEBARS
 app.use(express.static(__dirname + "/public"));
@@ -91,6 +108,18 @@ app.get("/loggerTest", (req, res) => {
     `Method:${req.method} - URL:${req.url} - ${new Date().toLocaleString()}`
   );
   res.send("Loggers created successfully");
+});
+
+app.get("/views/cart", (req, res) => {
+  if (!req.session.cart || !req.session.user) {
+    return res.redirect("/views/login"); 
+  }
+
+  res.render("cart", {
+    products: req.session.cart.products,
+    cart_id: req.session.cart._id,
+    session: req.session,
+  });
 });
 
 //SOCKET

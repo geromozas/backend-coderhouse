@@ -41,3 +41,11 @@ const auth = async (req, res, next) => {
     res.status(401).json({ error: "Autenticación fallida" });
   }
 };
+
+export const authorizationMiddleware = async (req, res, next) => {
+  if (req.session.user.rol === "admin" || req.session.user.rol === "premium") {
+    next();
+  } else {
+    res.send("No esta autorizado");
+  }
+};

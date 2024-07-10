@@ -2,15 +2,20 @@ import { Router } from "express";
 import { MongoUserManager } from "../dao/mongoManagers/mongoUserManager.js";
 import passport from "passport";
 import {
+  changeRole,
+  deleteInactiveUsers,
+  getAllUsers,
   getCurrentUser,
   login,
   logout,
   recoverPassword,
   register,
   resetPassword,
+  uploadDocuments,
 } from "../controllers/session.controller.js";
 import { UserDTO } from "../dao/dto/user.dto.js";
 import { authMiddleware } from "../middleware/auth.middleware.js";
+import upload from "../config/multer.config.js";
 
 const sessionRouter = Router();
 export const mongoUserManager = new MongoUserManager();
@@ -26,6 +31,18 @@ sessionRouter.post("/recoverPassword", recoverPassword);
 sessionRouter.post("/resetPassword", resetPassword);
 
 sessionRouter.get("/user/current", authMiddleware, getCurrentUser);
+
+sessionRouter.put("/users/premium/:uid", changeRole);
+
+sessionRouter.get("/", getAllUsers);
+
+sessionRouter.delete("/inactive", deleteInactiveUsers);
+
+sessionRouter.post(
+  "/:uid/documents",
+  upload.array("documents"),
+  uploadDocuments
+);
 
 sessionRouter.get("/user", (req, res) => {
   res.send(users);

@@ -1,0 +1,333 @@
+openapi: 3.0.1
+info:
+  title: E-commerce API
+  description: API documentation for E-commerce project
+  version: 1.0.0
+paths:
+  /api/carts:
+    post:
+      tags:
+        - carts
+      summary: Create a new cart
+      description: Create a new cart
+      responses:
+        200:
+          description: Cart created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        500:
+          description: Error in attempting to create the cart
+  /api/carts/{cid}:
+    get:
+      tags:
+        - carts
+      summary: Get cart products
+      description: Retrieve products in a cart by cart ID
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+          description: Cart ID
+      responses:
+        200:
+          description: List of products in the cart
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
+        500:
+          description: Error in attempting to retrieve the cart products
+    delete:
+      tags:
+        - carts
+      summary: Delete all products in the cart
+      description: Delete all products from a cart by cart ID
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+          description: Cart ID
+      responses:
+        200:
+          description: All products removed from the cart
+        500:
+          description: Error in attempting to delete the products
+  /api/carts/{cid}/products/{pid}:
+    post:
+      tags:
+        - carts
+      summary: Add a product to the cart
+      description: Add a product to a cart by cart ID and product ID
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+          description: Cart ID
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: Product ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: Quantity of the product to add
+      responses:
+        200:
+          description: Product added to the cart
+        500:
+          description: Error in attempting to add the product
+    delete:
+      tags:
+        - carts
+      summary: Remove a product from the cart
+      description: Remove a product from a cart by cart ID and product ID
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+          description: Cart ID
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: Product ID
+      responses:
+        200:
+          description: Product removed from the cart
+        500:
+          description: Error in attempting to remove the product
+    put:
+      tags:
+        - carts
+      summary: Update product quantity in the cart
+      description: Update the quantity of a product in a cart by cart ID and product ID
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+          description: Cart ID
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+          description: Product ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: New quantity of the product
+      responses:
+        200:
+          description: Product quantity updated in the cart
+        500:
+          description: Error in attempting to update the quantity
+  /api/carts/{cid}/purchase:
+    post:
+      tags:
+        - carts
+      summary: Purchase the cart
+      description: Purchase all products in a cart by cart ID
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            type: string
+          description: Cart ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                purchaser:
+                  type: string
+                  description: Email of the purchaser
+                  required: true
+      responses:
+        200:
+          description: Cart purchased successfully
+        500:
+          description: Error in attempting to purchase the cart
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Cart ID
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Product ID
+        name:
+          type: string
+          description: Product name
+        description:
+          type: string
+          description: Product description
+        price:
+          type: number
+          description: Product price
+        stock:
+          type: integer
+          description: Product stock
+        owner:
+          type: string
+          description: Product owner
+        quantity:
+          type: integer
+          description: Quantity of the product in the cart
+# openapi: 3.0.1
+# info:
+#   title: E-commerce API
+#   description: API documentation for E-commerce project
+#   version: 1.0.0
+# paths:
+#   /api/carts:
+#     post:
+#       summary: Create a new cart
+#       description: Create a new cart
+#       responses:
+#         200:
+#           description: Cart created successfully
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: "#/components/schemas/Cart"
+#         500:
+#           description: Error in attempting to create the cart
+#   /api/carts/{cid}:
+#     get:
+#       summary: Get cart products
+#       description: Retrieve products in a cart by cart ID
+#       parameters:
+#         - in: path
+#           name: cid
+#           required: true
+#           schema:
+#             type: string
+#           description: Cart ID
+#       responses:
+#         200:
+#           description: List of products in the cart
+#           content:
+#             application/json:
+#               schema:
+#                 type: array
+#                 items:
+#                   $ref: "#/components/schemas/Product"
+#         500:
+#           description: Error in attempting to retrieve the cart products
+#     delete:
+#       summary: Delete all products in the cart
+#       description: Delete all products from a cart by cart ID
+#       parameters:
+#         - in: path
+#           name: cid
+#           required: true
+#           schema:
+#             type: string
+#           description: Cart ID
+#       responses:
+#         200:
+#           description: All products removed from the cart
+#         500:
+#           description: Error in attempting to delete the products
+#   /api/carts/{cid}/products/{pid}:
+#     post:
+#       summary: Add a product to the cart
+#       description: Add a product to a cart by cart ID and product ID
+#       parameters:
+#         - in: path
+#           name: cid
+#           required: true
+#           schema:
+#             type: string
+#           description: Cart ID
+#         - in: path
+#           name: pid
+#           required: true
+#           schema:
+#             type: string
+#           description: Product ID
+#       requestBody:
+#         content:
+#           application/json:
+#             schema:
+#               type: object
+#               properties:
+#                 quantity:
+#                   type: integer
+#                   description: Quantity of the product to add
+#       responses:
+#         200:
+#           description: Product added to the cart
+#         500:
+#           description: Error in attempting to add the product
+#     delete:
+#       summary: Remove a product from the cart
+#       description: Remove a product from a cart by cart ID and product ID
+#       parameters:
+#         - in: path
+#           name: cid
+#           required: true
+#           schema:
+#             type: string
+#           description: Cart ID
+#         - in: path
+#           name: pid
+#           required: true
+#           schema:
+#             type: string
+#           description: Product ID
+#       responses:
+#         200:
+#           description: Product removed from the cart
+#         500:
+#           description: Error in attempting to remove the product
+#     put:
+#       summary: Update product quantity in the cart
+#       description: Update the quantity of a product in a cart by cart ID and product ID
+#       parameters:
+#         - in: path
+#           name: cid
+#           required: true
+#           schema:
+#             type: string
+#           description: Cart ID

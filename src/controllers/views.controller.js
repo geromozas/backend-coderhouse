@@ -116,3 +116,12 @@ export const resetPassword = async (req, res) => {
     res.redirect("/views/recoverPassword");
   }
 };
+
+export const adminView = async (req, res) => {
+  try {
+    const users = await mongoUserManager.getAll();
+    res.render("admin", { users });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};

@@ -2,7 +2,7 @@ import { ProductModel } from "../models/product.model.js";
 import mongoose from "mongoose";
 
 export class MongoProductManager {
-  addProduct = async (product) => {
+  addProduct = async (product, owner) => {
     try {
       const {
         title,
@@ -25,11 +25,6 @@ export class MongoProductManager {
         !category
       )
         throw new Error("Completa todos los campos requeridos");
-
-      const owner =
-        user.role === "premium"
-          ? user._id
-          : await UserModel.findOne({ role: "admin" })._id;
 
       const newProduct = await ProductModel.create({ ...product, owner });
       return newProduct;

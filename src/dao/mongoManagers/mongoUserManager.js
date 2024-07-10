@@ -94,6 +94,14 @@ export class MongoUserManager {
     }
   };
 
+  comparePassword = async (user, password) => {
+    try {
+      return isValidatePassword(user, password);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+
   findById = async (userId) => {
     try {
       const user = await UserModel.findById(userId);
@@ -112,11 +120,28 @@ export class MongoUserManager {
     }
   };
 
-  comparePassword = async (user, password) => {
+  getAll = async () => {
     try {
-      return isValidatePassword(user, password);
+      const users = await UserModel.find(
+        {},
+        "first_name last_name email role"
+      ).lean();
+      return users;
     } catch (error) {
-      throw new Error(error.message);
+      console.error("Error getting all users:", error);
+      throw new Error("Error getting all users");
+    }
+  };
+
+  findInactiveSince = async (date) => {
+    try {
+      const users = await UserModel.find({
+        last_connection: { $lt: date },
+      }).lean();
+      return users;
+    } catch (error) {
+      console.error("Error finding inactive users:", error);
+      throw new Error("Error finding inactive users");
     }
   };
 }

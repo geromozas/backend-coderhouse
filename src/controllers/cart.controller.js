@@ -15,8 +15,8 @@ export const createCart = async (req, res) => {
 };
 
 export const getCartProducts = async (req, res) => {
-  const cart_id = req.params.cid;
   try {
+    const cart_id = req.params.cid;
     const response = await cartDao.getCartProducts(cart_id);
     res.json(response);
   } catch (error) {
@@ -26,16 +26,22 @@ export const getCartProducts = async (req, res) => {
 };
 
 export const addProductToCart = async (req, res) => {
-  const cart_id = req.params.cid;
-  const product_id = req.params.pid;
-  const { quantity } = req.body;
   try {
+    const cart_id = req.params.cid;
+    const product_id = req.params.pid;
+    const { quantity } = req.body;
+    const product = await productFactory.getProductsById(product_id);
+    if (product.owner === req.session.user.email) {
+      throw new Error(
+        "No puedes agregar este producto al carrito ya que te pertenece"
+      );
+    }
     const response = await cartDao.addProductToCart(
       cart_id,
       product_id,
       quantity
     );
-    res.status(200).send("Producto agregado con éxito");
+    res.status(200).send(response);
   } catch (error) {
     req.logger.error(`${error} - ${new Date().toLocaleString()}`);
     console.error(error);

@@ -4,6 +4,7 @@ import { io } from "../index.js";
 import {
   adminMiddleware,
   authMiddleware,
+  authorizationMiddleware,
 } from "../middleware/auth.middleware.js";
 import {
   addProduct,
@@ -22,12 +23,12 @@ productsRouter.get("/", getProducts);
 productsRouter.get("/:pid", getProductsById);
 
 //agregar producto
-productsRouter.post("/", authMiddleware, addProduct);
+productsRouter.post("/", addProduct);
 
 //actualizar producto
 productsRouter.put("/:pid", adminMiddleware, updateProduct);
 
 //eliminar producto
-productsRouter.delete("/:pid", authMiddleware, deleteProduct);
+productsRouter.delete("/:pid", authorizationMiddleware, deleteProduct);
 
 export { productsRouter };

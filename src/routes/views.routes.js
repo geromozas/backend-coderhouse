@@ -5,6 +5,7 @@ import { MongoMessageManager } from "../dao/mongoManagers/mongoMessageManager.js
 import { mongoCartManager } from "./carts.routes.js";
 import { authMiddleware, userLogged } from "../middleware/auth.middleware.js";
 import {
+  adminView,
   createMessage,
   login,
   profile,
@@ -44,3 +45,5 @@ viewsRouter.get("/profile", profile);
 viewsRouter.get("/recoverPassword", recoverPassword);
 
 viewsRouter.get("/resetPassword", resetPassword);
+
+viewsRouter.get("/admin", adminView);

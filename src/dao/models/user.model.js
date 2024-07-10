@@ -1,5 +1,21 @@
 import mongoose from "mongoose";
 
+const DocumentSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    reference: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    _id: false,
+  }
+);
+
 const UserSchema = new mongoose.Schema(
   {
     first_name: {
@@ -28,6 +44,14 @@ const UserSchema = new mongoose.Schema(
     cart: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cart",
+      default: null,
+    },
+    documents: {
+      type: [DocumentSchema],
+      default: null,
+    },
+    last_connection: {
+      type: Date,
       default: null,
     },
   },

@@ -7,7 +7,7 @@ export const productFactory = new Products();
 
 export const getProducts = async (req, res) => {
   try {
-    const { limit = 10, page = 1, sort, query } = req.query;
+    const { limit = 10, page = 1, sort = 1, query } = req.query;
     const products = await productFactory.getProducts(limit, page, query, sort);
     return res.json(products);
   } catch (error) {
@@ -33,24 +33,13 @@ export const getProductsById = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   try {
-    if (
-      req.session.user.role !== "premium" &&
-      req.session.user.role !== "admin"
-    ) {
-      return res.status(403).send("Acceso denegado");
-    }
-
-    const productData = {
-      ...req.body,
-      owner:
-        req.session.user.role === "premium" ? req.session.user.email : "admin",
-    };
-    const productAdded = await productFactory.addProduct(req.body);
+    const owner = req.session.user.email;
+    const productAdded = await productFactory.addProduct(req.body, owner);
     io.emit("productAdded", productAdded);
     res.json(productAdded);
   } catch (error) {
     req.logger.error(`${error} - ${new Date().toLocaleString()}`);
-    console.log(error);
+    console.log("hola");
     res.status(500).send(`Error en intentar agregar el producto`);
   }
 };
@@ -77,7 +66,10 @@ export const deleteProduct = async (req, res) => {
       return res.status(404).send("Producto no encontrado");
     }
 
-    if (req.user.role !== "admin" && product.owner !== req.user.email) {
+    if (
+      req.session.user.role !== "admin" &&
+      product.owner !== req.session.user.email
+    ) {
       return res.status(403).send("Acceso denegado");
     }
     const response = await productFactory.deleteProduct(id);
