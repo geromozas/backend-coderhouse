@@ -35,14 +35,14 @@ El proyecto tiene como objetivo crear una plataforma de comercio electrónico pa
    npm install
    ```
 4. Configura las variables de entorno. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
+
    ```env
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/tu_base_de_datos
-   JWT_SECRET=tu_secreto_jwt
-   GITHUB_CLIENT_ID=tu_github_client_id
-   GITHUB_CLIENT_SECRET=tu_github_client_secret
-   GMAIL_USER=tu_usuario_gmail
-   GMAIL_PASS=tu_contraseña_gmail
+   DB_CONNECTION = "mongodb+srv://mozasgeronimo:4715147@proyectocoder.hoo0h1r.mongodb.net/ecommerce"
+   DB_PORT = 8080
+   DB_CLIENT_ID = "Iv1.9725fbcb86fac358"
+   DB_CLIENT_SECRET = "86709731ce00bfbc7a98b0e179cb324d6870099d"
+   PERSISTENCE = "MONGO"
+
    ```
 
 ## Ejecución
