@@ -61,14 +61,34 @@ npm test
 
 ## Estructura del Proyecto
 
-- `src/`
+<!-- - `src/`
   - `controllers/` - Controladores de las rutas.
   - `models/` - Modelos de Mongoose.
   - `routes/` - Definición de las rutas.
   - `views/` - Vistas de Handlebars.
   - `middlewares/` - Middlewares personalizados.
   - `utils/` - Utilidades y helpers.
-  - `index.js` - Archivo principal del servidor.
+  - `index.js` - Archivo principal del servidor. -->
+
+`src/`
+`config/` - Configuración de la aplicación.
+`controllers/` - Controladores de las rutas.
+`dao/`
+    `db/` - Acceso a la base de datos.
+    `dto/` - Objetos de transferencia de datos.
+    `fileSystem/` - Manejo de archivos.
+    `models/` - Modelos de datos.
+    `mongoManagers/` - Gestores específicos de MongoDB.
+    `factory.js` - Archivo para la creación de instancias.
+`docs/` - Documentación del proyecto.
+`middlewares/` - Middlewares personalizados.
+`mocks/` - Datos de prueba o simulados.
+`public/` - Archivos estáticos accesibles públicamente.
+`routes/` - Definición de las rutas de la aplicación.
+`services/` - Servicios de la aplicación.
+`utils/` - Utilidades y helpers genéricos.
+`views/` - Vistas de la aplicación (si aplica).
+`index.js` - Archivo principal del servidor.
 
 ## Documentación de la API
 
