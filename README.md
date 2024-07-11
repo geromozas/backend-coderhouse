@@ -93,35 +93,54 @@ npm test
 
 ## Documentación de la API
 
-La documentación de la API se genera automáticamente con Swagger. Una vez que el servidor esté en funcionamiento, puedes acceder a la documentación en `http://localhost:3000/api-docs`.
+La documentación de la API se genera automáticamente con Swagger. Una vez que el servidor esté en funcionamiento, puedes acceder a la documentación en `http://localhost:8080/apidocs`.
 
 ## Endpoints Principales
 
 ### Usuarios
 
-- `POST /api/users/register` - Registro de nuevos usuarios.
-- `POST /api/users/login` - Inicio de sesión de usuarios.
-- `GET /api/users/logout` - Cierre de sesión de usuarios.
-- `GET /api/users/current` - Obtención de datos del usuario logueado.
+- `POST api/sessions/register` - Registro de nuevos usuarios.
+- `POST api/sessions/login` - Inicio de sesión de usuarios.
+- `GET api/sessions/logout` - Cierre de sesión de usuarios.
+- `GET api/sessions/user/current` - Obtención de datos del usuario logueado.
+- `POST api/sessions/recoverPassword` - Envio de mail para recuperar contrasña.
+- `POST api/sessions/resetPassword` - Generación de nueva contraseña.
+- `PUT api/sessions/users/premium/:uid` - Cambio de roles.
+- `GET api/sessions/` - Todos los usuarios.
+- `DELETE api/sessions/inactive` - Eliminación de usuarios inactivos.
 
 ### Productos
 
 - `GET /api/products` - Obtención de todos los productos.
-- `GET /api/products/:id` - Obtención de un producto por su ID.
-- `POST /api/products` - Creación de un nuevo producto (requiere rol de administrador).
-- `PUT /api/products/:id` - Actualización de un producto existente (requiere rol de administrador).
-- `DELETE /api/products/:id` - Eliminación de un producto (requiere rol de administrador).
+- `GET /api/products/:pid` - Obtención de un producto por su ID.
+- `POST /api/products` - Creación de un nuevo producto.
+- `PUT /api/products/:pid` - Actualización de un producto existente.
+- `DELETE /api/products/:pid` - Eliminación de un producto.
 
-### Carritos de Compra
+### Carts
 
-- `GET /api/carts` - Obtención de los carritos de compra del usuario.
 - `POST /api/carts` - Creación de un nuevo carrito de compra.
-- `PUT /api/carts/:id` - Actualización de un carrito de compra.
-- `DELETE /api/carts/:id` - Eliminación de un carrito de compra.
+- `GET /api/carts/:cid` - Obtención de los productos del carrito.
+- `POST /api/carts/:cid/product/:pid` - Agregar un producto al carrito.
+- `DELETE /api/carts/:cid/product/:pid` - Eliminación de un producto por id.
+- `DELETE /api/carts/:cid/product/:pid` - Eliminación de todos los productos del carrito.
+- `PUT /api/carts/:cid/product/:pid` - Actualización de cantidad de producto.
+- `POST /api/carts/:cid/purchase` - Obtención de ticket de compra.
 
-### Compras
+### Mocking
 
-- `POST /api/purchases` - Realización de una compra.
+- `GET /api/mock/mockingproducts` - Generación de productos de prueba.
+
+### Views
+
+- `GET /views/products` - Vista para ver todos los productos.
+- `GET /views/realTimeProducts` - Productos en tiempo real.
+- `GET /views/cart/:id` - Vista para ver los productos del carrito.
+- `GET /views/register` - Vista para registrarse.
+- `GET /views/login` - Vista para iniciar sesión.
+- `GET /views/profile` - Vista para ver datos del perfil.
+- `GET /views/recoverPassword` - Vista para ingresar mail para recuperar contraseña.
+- `GET /views/resetPassword` - Vista para generar nueva contraseña.
 
 ## Funcionalidades Adicionales
 
