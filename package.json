@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "mocha"
   },
   "author": "",
@@ -35,6 +36,7 @@
     "@faker-js/faker": "^8.4.1",
     "chai": "^5.1.1",
     "mocha": "^10.5.2",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "nodemon": "^2.0.15"
   }
 }
