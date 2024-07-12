@@ -118,7 +118,13 @@ export const purchaseCart = async (req, res) => {
 
     await cartDao.updateAfterPurchase(cart_id, not_available_products);
 
+    if (not_available_products.length === 0) {
+      console.log("Vaciando carrito:", cart_id);
+      await cartDao.deleteAllProducts(cart_id);
+    }
+
     const newTicket = await createTicket(amount, purchaser);
+
     res.send(newTicket);
   } catch (error) {
     req.logger.error(`${error} - ${new Date().toLocaleString()}`);

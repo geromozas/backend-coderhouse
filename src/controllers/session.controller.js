@@ -19,11 +19,25 @@ export const register = async (req, res) => {
   }
 };
 
+// export const login = async (req, res) => {
+//   try {
+//     const user = await mongoUserManager.login(req.body);
+//     req.session.user = user;
+//     // req.session.user = user.toObject();
+//     res.redirect("http://localhost:8080/views/profile");
+//     return;
+//   } catch (error) {
+//     req.logger.error(`${error} - ${new Date().toLocaleString()}`);
+//     console.log(error);
+//     res.status(500).json({ error: error.code, message: error.message });
+//   }
+// };
+
 export const login = async (req, res) => {
   try {
     const user = await mongoUserManager.login(req.body);
+    console.log("Usuario logueado:", user);
     req.session.user = user;
-    // req.session.user = user.toObject();
     res.redirect("http://localhost:8080/views/profile");
     return;
   } catch (error) {

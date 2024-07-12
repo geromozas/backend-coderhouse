@@ -40,7 +40,11 @@ export const viewProductsOfCart = async (req, res) => {
   try {
     const { id } = req.params;
     const products = await cartDao.getCartProducts(id);
-    res.render("cart", { products, cart_id: req.session.user.cart });
+    res.render("cart", {
+      products,
+      cart_id: req.session.user.cart,
+      user_email: req.session.user.email,
+    });
   } catch (error) {
     req.logger.error(`${error} - ${new Date().toLocaleString()}`);
     return res.status(500).json({ message: error.message });

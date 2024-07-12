@@ -112,8 +112,10 @@ app.get("/loggerTest", (req, res) => {
 
 app.get("/views/cart", (req, res) => {
   if (!req.session.cart || !req.session.user) {
-    return res.redirect("/views/login"); 
+    return res.redirect("/views/login");
   }
+
+  console.log("Correo electrónico del usuario:", req.session.user.email);
 
   res.render("cart", {
     products: req.session.cart.products,

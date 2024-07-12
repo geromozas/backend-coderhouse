@@ -73,6 +73,7 @@ export class MongoCartManager {
       if (!existingCart) throw new Error("No se encontro el carrito");
       existingCart.products = [];
       await existingCart.save();
+      console.log("Carrito vaciado:", cart_id);
       return existingCart;
     } catch (error) {
       throw new Error(error.message);
